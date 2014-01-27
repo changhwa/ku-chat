@@ -22,9 +22,4 @@ public interface UserRepository extends JpaRepository<User, Integer>{
      */
     User findByEmail(String email)
 
-
-//    @Modifying
-//    @Query("update User u set u.login_cnt = ?1 where u.email = ?2")
-//    void updateUserLoginCntByEmail(int loginCnt, String email)
-
 }
