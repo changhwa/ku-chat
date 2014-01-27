@@ -7,6 +7,7 @@ import io.kuchat.server.common.SocketDataProvider
 import io.kuchat.server.common.vo.CommonVo
 import io.kuchat.server.common.vo.ResultVo
 import io.kuchat.server.config.AppConfig
+import net.sf.json.JSONObject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
@@ -27,19 +28,27 @@ class AuthApp {
      */
     public void start(){
         //소켓부분 구현
+        def server = new ServerSocket(9000)
 
-        //데이터 bind
-        String json = "{\n" +
-                "   \"json\":{\n" +
-                "      \"header\":\"auth\",\n" +
-                "      \"actionType\":\"login\",\n" +
-                "      \"data\":{\n" +
-                "         \"id\":\"1\",\n" +
-                "         \"pw\":\"1234\",\n" +
-                "         \"email\":\"test1@narratage.com\"\n" +
-                "      }\n" +
-                "   }\n" +
-                "}"
+        while (true){
+            server.accept { socket ->
+                log.info ("Connection ...")
+                socket.withStreams { input, output ->
+                    def inputStream = input.newReader()
+                    String json = inputStream.readLine()
+                    log.info("json data : => $json")
+                    output << recevie(json)
+                }
+                log.info ("the end...")
+            }
+        }
+    }
+
+    /**
+     * 소켓으로 부터 데이터를 받음
+     * @param json
+     */
+    def recevie(String json) {
         CommonVo commonVo = authSocketDataProvider.socketJsonDataToVo(json, User.class)
         doAction(commonVo)
     }
@@ -55,6 +64,10 @@ class AuthApp {
         log.info(" ActionType == > " + actionType)
 
         ResultVo resultVo = userAuthService."$actionType"(commonVo.data)
+
+        //TODO 리팩토링 해야할듯.. doAction에 어울리지 않음
+        commonVo.data = resultVo
+        JSONObject.fromObject(commonVo)
     }
 
 
