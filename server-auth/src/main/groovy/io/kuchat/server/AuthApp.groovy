@@ -5,6 +5,7 @@ import io.kuchat.server.auth.domain.User
 import io.kuchat.server.auth.service.AuthService
 import io.kuchat.server.common.SocketDataProvider
 import io.kuchat.server.common.vo.CommonVo
+import io.kuchat.server.common.vo.ResultVo
 import io.kuchat.server.config.AppConfig
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationContext
@@ -53,7 +54,7 @@ class AuthApp {
         log.info(" Auth Action ")
         log.info(" ActionType == > " + actionType)
 
-        User user = userAuthService."$actionType"(commonVo.data)
+        ResultVo resultVo = userAuthService."$actionType"(commonVo.data)
     }
 
 
