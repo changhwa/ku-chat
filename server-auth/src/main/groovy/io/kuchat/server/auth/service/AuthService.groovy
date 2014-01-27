@@ -4,6 +4,6 @@ import io.kuchat.server.auth.domain.User
 
 public interface AuthService {
 
-    User findUserById(User user)
+    User login(User user)
 
 }
