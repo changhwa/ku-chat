@@ -37,7 +37,8 @@ class AuthApp {
                     def inputStream = input.newReader()
                     String json = inputStream.readLine()
                     log.info("json data : => $json")
-                    output << recevie(json)
+                    def sendData = recevie(json)
+                    output << sendData
                 }
                 log.info ("the end...")
             }
@@ -50,7 +51,8 @@ class AuthApp {
      */
     def recevie(String json) {
         CommonVo commonVo = authSocketDataProvider.socketJsonDataToVo(json, User.class)
-        doAction(commonVo)
+        def result = doAction(commonVo)
+        result
     }
 
     /**
@@ -67,7 +69,7 @@ class AuthApp {
 
         //TODO 리팩토링 해야할듯.. doAction에 어울리지 않음
         commonVo.data = resultVo
-        JSONObject.fromObject(commonVo)
+        return JSONObject.fromObject(commonVo).toString()
     }
 
 
