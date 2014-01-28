@@ -15,10 +15,8 @@ class AuthSocketDataProvider implements SocketDataProvider{
         Map<String, Class> classMap = new HashMap<>()
         classMap.put("data",classT)
 
-        JSONObject jsonObject = JSONObject.fromObject(json).getJSONObject("json")
-
         //그루비 에서는 사실 형변환이 의미가 없음
-        CommonVo commonVo = JSONObject.toBean(jsonObject
+        CommonVo commonVo = JSONObject.toBean(JSONObject.fromObject(json)
                 ,CommonVo.class
                 ,classMap) as CommonVo
 
