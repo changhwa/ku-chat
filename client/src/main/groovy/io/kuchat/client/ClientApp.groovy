@@ -1,29 +1,29 @@
 package io.kuchat.client
 
-import io.kuchat.client.view.LoginFrame
+import io.kuchat.client.config.AppConfig
+import io.kuchat.client.auth.view.LoginFrame
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.ApplicationContext
+import org.springframework.context.annotation.AnnotationConfigApplicationContext
+import org.springframework.stereotype.Component
 
+//TODO 전체적으로 Refactoring 해야됨
+
+@Component
 class ClientApp {
 
-    public static void main(String[] args) {
-//        def json = "{" +
-//                "   \"json\":{" +
-//                "      \"header\":\"auth\"," +
-//                "      \"actionType\":\"login\"," +
-//                "      \"data\":{" +
-//                "         \"id\":\"1\"," +
-//                "         \"pw\":\"1234\"," +
-//                "         \"email\":\"test1@narratage.com\"" +
-//                "      }" +
-//                "   }" +
-//                "}\n"
-//        Socket socket = new Socket("localhost", 9000)
-//        socket.withStreams {input, output ->
-//            output << json
-//            def reader = input.newReader()
-//            String result = reader.readLine()
-//            println result
-//        }
+    @Autowired
+    LoginFrame loginFrame
 
-        LoginFrame.loginViewFrame()
+    def start(){
+        loginFrame.loginViewFrame()
+    }
+
+
+    public static void main(String[] args) {
+
+        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class)
+        ClientApp clientApp = context.getBean("clientApp")
+        clientApp.start()
     }
 }

@@ -1,12 +1,21 @@
-package io.kuchat.client.view
+package io.kuchat.client.auth.view
 
 import groovy.swing.SwingBuilder
+import io.kuchat.client.auth.controller.AuthController
+import io.kuchat.client.auth.vo.AuthVo
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Component
+
 import javax.swing.*
 import java.awt.GridBagConstraints
 
+@Component
 class LoginFrame {
 
-    static def loginViewFrame(){
+    @Autowired
+    AuthController authController
+
+    def loginViewFrame(){
 
         def swingBuilder = new SwingBuilder()
 
@@ -17,6 +26,8 @@ class LoginFrame {
                 }
             }
         }
+
+        AuthVo authVo = new AuthVo()
 
         swingBuilder.edt{
             lookAndFeel 'nimbus'
@@ -47,7 +58,9 @@ class LoginFrame {
                         }
                         hbox(constraints:gbc(gridwidth:GridBagConstraints.REMAINDER, gridx:0,gridy:1)){
                             button text: "Login", actionPerformed: {
-                                println ">_<"
+                                authVo.email = email.text
+                                authVo.passwd = passwd.text
+                                authController.login(authVo)
                             }
                             button(text:"Cancel")
                         }
