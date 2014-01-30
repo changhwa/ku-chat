@@ -1,10 +1,14 @@
 package io.kuchat.sub.autoset
 
 import io.kuchat.sub.autoset.option.HelperOption
+import io.kuchat.sub.autoset.option.MakerOption
 import io.kuchat.sub.autoset.option.Option
+import io.kuchat.sub.autoset.vo.OptionVo
 
 //TODO 차후 Gradle Task로 확장함
 class AutoApp {
+
+    OptionVo optionVo
 
     private AutoApp(){}
 
@@ -12,9 +16,12 @@ class AutoApp {
 
         Option option
 
-        if(optionType == "-h") {
+        if(optionType == "-h") { //Helper
             option = new HelperOption()
             option.job(optionValues)
+        } else if (optionType == "-m"){ //Make
+            option = new MakerOption()
+            optionVo = option.job(optionValues)
         }
 
     }
@@ -28,21 +35,6 @@ class AutoApp {
         }
         new AutoApp(args[0], args)
 
-        //옵션에 따른 실행
-
-        //변수체크
-
-        //build.gradle 생성
-
-        //프로젝트 구조
-
-        //JavaConfig
-
-        //조건에 따른 resources 생성
-
-        //logging
-
-        //common 복사
 
     }
 }
