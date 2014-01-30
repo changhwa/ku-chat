@@ -12,6 +12,7 @@ targetCompatibility = '1.7'
 group = 'io.kuchat.sub.autoset'
 version = '0.1'
 
+mainClassName = 'io.kuchat.sub.autoset.AutoApp'
 
 ext{
 }
