@@ -14,6 +14,7 @@ class MakerOption implements Option{
         projectName(options)
         ide(options)
         projectType(options)
+        optionVo
     }
 
     @Override
