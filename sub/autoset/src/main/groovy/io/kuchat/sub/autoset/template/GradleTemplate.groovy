@@ -6,20 +6,17 @@ class GradleTemplate implements Template{
     @Override
     def template(def options) {
 
-        def ide = options[0]
-        def name = options[1]
-
         def buildContent = """
 
             apply plugin:'application'
             apply plugin: 'groovy'
-            apply plugin: '$ide'
+            apply plugin: '$options.ide'
             apply plugin: 'java'
 
             sourceCompatibility = '1.7'
             targetCompatibility = '1.7'
 
-            group = 'io.kuchat.$name'
+            group = 'io.kuchat.$options.projectKind'
             version = '0.1'
 
 
