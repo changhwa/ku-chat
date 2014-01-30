@@ -24,10 +24,8 @@ class MakerOption implements Option{
 
         if(name.startsWith("server-")||name.startsWith("client-")){
             String projectRootPath = new File(new File(CURRENT_PATH).parent).parent
-            File file = new File(projectRootPath+"/"+name)
-            file.mkdir()
+            optionVo.projectPath = projectRootPath+"/"+name
             optionVo.projectKind = name.substring(0,6)
-            println "$name 폴더가 만들어졌습니다."
         }
 
     }

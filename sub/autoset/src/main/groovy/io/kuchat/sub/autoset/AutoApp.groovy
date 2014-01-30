@@ -3,12 +3,13 @@ package io.kuchat.sub.autoset
 import io.kuchat.sub.autoset.option.HelperOption
 import io.kuchat.sub.autoset.option.MakerOption
 import io.kuchat.sub.autoset.option.Option
+import io.kuchat.sub.autoset.service.AutoService
 import io.kuchat.sub.autoset.vo.OptionVo
 
 //TODO 차후 Gradle Task로 확장함
 class AutoApp {
 
-    OptionVo optionVo = new OptionVo()
+    static OptionVo optionVo = new OptionVo()
 
     private AutoApp(){}
 
@@ -34,6 +35,7 @@ class AutoApp {
             System.exit(0)
         }
         new AutoApp(args[0], args)
+        new AutoService(optionVo)
 
 
     }
