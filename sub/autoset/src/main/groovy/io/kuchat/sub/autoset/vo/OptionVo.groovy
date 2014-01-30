@@ -6,10 +6,6 @@ class OptionVo {
     def ide
     def projectType
 
-    def getProjectKind() {
-        return projectKind
-    }
-
     def getIde(){
         if(ide == "idea" || ide == "eclipse"){
             return ide

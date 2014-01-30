@@ -8,7 +8,7 @@ import io.kuchat.sub.autoset.vo.OptionVo
 //TODO 차후 Gradle Task로 확장함
 class AutoApp {
 
-    OptionVo optionVo
+    OptionVo optionVo = new OptionVo()
 
     private AutoApp(){}
 
