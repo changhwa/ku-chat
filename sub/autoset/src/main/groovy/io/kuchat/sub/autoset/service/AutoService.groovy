@@ -20,7 +20,7 @@ class AutoService {
     def makeProjectFolder(OptionVo optionVo){
         File file = new File(optionVo.projectPath)
         file.mkdir()
-        log.info("$optionVo.projectPath 에 폴더를 생성하였습니다.")
+        log.info("$optionVo.projectPath 에 프로젝트 폴더를 생성하였습니다.")
     }
 
 }
