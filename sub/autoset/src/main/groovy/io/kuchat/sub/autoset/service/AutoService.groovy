@@ -15,6 +15,7 @@ class AutoService {
     AutoService(OptionVo optionVo){
         makeProjectFolder(optionVo)
         makeBuildGradle(optionVo)
+        playGradleBuild(optionVo)
     }
 
     /**
@@ -37,6 +38,16 @@ class AutoService {
         File file = new File(optionVo.projectPath+"/build.gradle")
         file << buildContent
         log.info("build.gradle 파일을 생성하였습니다")
+    }
+
+    /**
+     * Gradle의 기본적인 Build를 실행함
+     * @param optionVo
+     */
+    def playGradleBuild(OptionVo optionVo){
+        //TODO GRADLE_HOME을 설정하는 방안 구상 , 또는 gradlew 사용
+        println " /Users/changhwa/gradle/gradle-1.6/bin/gradle build".execute(
+                null, new File(optionVo.projectPath)).text
     }
 
 
