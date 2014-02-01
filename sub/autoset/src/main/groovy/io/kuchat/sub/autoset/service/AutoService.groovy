@@ -2,6 +2,7 @@ package io.kuchat.sub.autoset.service
 
 import groovy.util.logging.Slf4j
 import io.kuchat.sub.autoset.template.GradleTemplate
+import io.kuchat.sub.autoset.template.SpringJpaTemplate
 import io.kuchat.sub.autoset.template.Template
 import io.kuchat.sub.autoset.vo.OptionVo
 
@@ -16,6 +17,7 @@ class AutoService {
         makeProjectFolder(optionVo)
         makeBuildGradle(optionVo)
         playGradleBuild(optionVo)
+        makeAppConfig(optionVo)
     }
 
     /**
@@ -48,6 +50,24 @@ class AutoService {
         //TODO GRADLE_HOME을 설정하는 방안 구상 , 또는 gradlew 사용
         println " /Users/changhwa/gradle/gradle-1.6/bin/gradle build".execute(
                 null, new File(optionVo.projectPath)).text
+    }
+
+    /**
+     * 스프링 설정파일을 생성함
+     * @param optionVo
+     * @return
+     */
+    def makeAppConfig(OptionVo optionVo){
+
+        template = new SpringJpaTemplate()
+
+        def appConfig = template.template(optionVo)
+        def projectKind = optionVo.projectKind
+        def configFilePath = optionVo.projectPath+
+                "/src/main/groovy/io/kuchat/$projectKind/config"
+        new File(configFilePath).mkdirs()
+        def appConfigFile = new File(configFilePath+"/AppConfig.groovy")
+        appConfigFile << appConfig
     }
 
 
