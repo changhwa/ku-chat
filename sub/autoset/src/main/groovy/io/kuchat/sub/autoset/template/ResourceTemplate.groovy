@@ -9,8 +9,7 @@ class ResourceTemplate implements Template{
     }
 
     def jpa(options){
-'''
-<?xml version="1.0" encoding="UTF-8"?>
+'''<?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
     <persistence-unit name="Kuchat">
