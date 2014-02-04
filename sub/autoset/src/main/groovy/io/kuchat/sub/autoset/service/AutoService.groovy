@@ -2,6 +2,7 @@ package io.kuchat.sub.autoset.service
 
 import groovy.util.logging.Slf4j
 import io.kuchat.sub.autoset.template.GradleTemplate
+import io.kuchat.sub.autoset.template.ResourceTemplate
 import io.kuchat.sub.autoset.template.SpringJpaTemplate
 import io.kuchat.sub.autoset.template.Template
 import io.kuchat.sub.autoset.vo.OptionVo
@@ -18,6 +19,7 @@ class AutoService {
         makeBuildGradle(optionVo)
         playGradleBuild(optionVo)
         makeAppConfig(optionVo)
+        makeAppResource(optionVo)
     }
 
     /**
@@ -48,7 +50,7 @@ class AutoService {
      */
     def playGradleBuild(OptionVo optionVo){
         //TODO GRADLE_HOME을 설정하는 방안 구상 , 또는 gradlew 사용
-        println " /Users/changhwa/gradle/gradle-1.6/bin/gradle build".execute(
+        println " /Users/changhwaoh/gradle/gradle-1.10/bin/gradle build".execute(
                 null, new File(optionVo.projectPath)).text
     }
 
@@ -69,6 +71,27 @@ class AutoService {
         def appConfigFile = new File(configFilePath+"/AppConfig.groovy")
         appConfigFile << appConfig
     }
+
+    /**
+     * 스프링 Resource 파일을 생성함
+     * @param optionVo
+     * @return
+     */
+    def makeAppResource(OptionVo optionVo){
+
+        template = new ResourceTemplate()
+        def resources = template.template(optionVo)
+
+        if(optionVo.projectType == "jpa"){
+            def resourcePath = optionVo.projectPath + "/src/main/resources/META-INF"
+            new File(resourcePath).mkdirs()
+            def persistence = new File(resourcePath+"/persistence.xml")
+            persistence << resources
+        }
+
+        log.info "resource 파일 생성 완료"
+    }
+
 
 
 }
