@@ -19,9 +19,10 @@ class MakerOption implements Option{
     def projectName(def option) {
 
         String name = option[1]
-
+        println CURRENT_PATH
         if(name.startsWith("server-")||name.startsWith("client-")){
-            String projectRootPath = new File(new File(CURRENT_PATH).parent).parent
+            //개발시 String projectRootPath = new File(new File(CURRENT_PATH).parent).parent
+            String projectRootPath = new File(new File(CURRENT_PATH)) //운영
             optionVo.projectPath = projectRootPath+"/"+name
             optionVo.projectKind = name.substring(0,6)
         } else {
