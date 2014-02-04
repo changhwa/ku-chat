@@ -1,6 +1,6 @@
 package io.kuchat.sub.autoset.template
 
-class SpringJpaTemplate implements Template{
+class SpringConfigTemplate implements Template{
 
     @Override
     def template(options) {

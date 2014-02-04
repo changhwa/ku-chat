@@ -3,7 +3,7 @@ package io.kuchat.sub.autoset.service
 import groovy.util.logging.Slf4j
 import io.kuchat.sub.autoset.template.GradleTemplate
 import io.kuchat.sub.autoset.template.ResourceTemplate
-import io.kuchat.sub.autoset.template.SpringJpaTemplate
+import io.kuchat.sub.autoset.template.SpringConfigTemplate
 import io.kuchat.sub.autoset.template.Template
 import io.kuchat.sub.autoset.vo.OptionVo
 
@@ -61,7 +61,7 @@ class AutoService {
      */
     def makeAppConfig(OptionVo optionVo){
 
-        template = new SpringJpaTemplate()
+        template = new SpringConfigTemplate()
 
         def appConfig = template.template(optionVo)
         def projectKind = optionVo.projectKind
