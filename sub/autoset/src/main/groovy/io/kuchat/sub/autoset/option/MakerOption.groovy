@@ -9,8 +9,6 @@ class MakerOption implements Option{
 
     @Override
     def job(def options) {
-        //TODO 빠르게 작성하느라 빠진 예외들 정리
-
         projectName(options)
         ide(options)
         projectType(options)
@@ -26,13 +24,24 @@ class MakerOption implements Option{
             String projectRootPath = new File(new File(CURRENT_PATH).parent).parent
             optionVo.projectPath = projectRootPath+"/"+name
             optionVo.projectKind = name.substring(0,6)
+        } else {
+            println "프로젝트 이름은 server- 나 client- 로 시작해야합니다"
+            System.exit(1)
         }
 
     }
 
     @Override
     def ide(def option) {
-        optionVo.ide = option[2]
+        def ide = option[2]
+        if(ide == "idea" || ide == "eclipse"){
+            optionVo.ide = ide
+        } else {
+            println "ide 옵션은 idea 나 eclipse 여야 합니다"
+            new File(optionVo.projectPath).deleteDir()
+            System.exit(1)
+        }
+
     }
 
     @Override
@@ -42,7 +51,7 @@ class MakerOption implements Option{
 
     @Override
     def noOptions() {
-        //TODO 아무 옵션값이 없거나 제대로 옵션값이 없을 경우 처리
-        return null  
+        println "옵션이 없습니다. -h 를 사용해서 도움말을 참고하세요"
+        System.exit(1)
     }
 }
