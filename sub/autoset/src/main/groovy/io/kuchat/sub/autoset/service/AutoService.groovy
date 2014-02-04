@@ -76,6 +76,7 @@ class AutoService {
         new File(configFilePath).mkdirs()
         def appConfigFile = new File(configFilePath+"/AppConfig.groovy")
         appConfigFile << appConfig
+        log.info "AppConfig.groovy 파일 생성 완료"
     }
 
     /**
