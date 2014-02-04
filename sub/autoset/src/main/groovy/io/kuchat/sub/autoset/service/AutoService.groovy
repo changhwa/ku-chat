@@ -1,6 +1,7 @@
 package io.kuchat.sub.autoset.service
 
 import groovy.util.logging.Slf4j
+import io.kuchat.sub.autoset.template.DbPropertyTemplate
 import io.kuchat.sub.autoset.template.GradleTemplate
 import io.kuchat.sub.autoset.template.ResourceTemplate
 import io.kuchat.sub.autoset.template.SpringConfigTemplate
@@ -20,6 +21,7 @@ class AutoService {
         playGradleBuild(optionVo)
         makeAppConfig(optionVo)
         makeAppResource(optionVo)
+        makeDbProperties(optionVo)
     }
 
     /**
@@ -90,6 +92,22 @@ class AutoService {
         }
 
         log.info "resource 파일 생성 완료"
+    }
+
+    /**
+     * DB 연결정보
+     * @param optionVo
+     * @return
+     */
+    def makeDbProperties(OptionVo optionVo){
+
+        template = new DbPropertyTemplate()
+        def properties = template.template(optionVo)
+        def propertyPath = optionVo.projectPath + "/src/main/resources"
+        def dbProperties = new File(propertyPath+"/db.properties")
+        dbProperties << properties
+
+        log.info "db.properties 파일 생성 완료"
     }
 
 
