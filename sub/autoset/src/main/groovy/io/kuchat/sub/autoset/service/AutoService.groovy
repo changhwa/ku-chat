@@ -18,7 +18,7 @@ class AutoService {
     AutoService(OptionVo optionVo){
         makeProjectFolder(optionVo)
         makeBuildGradle(optionVo)
-        playGradleBuild(optionVo)
+        //playGradleBuild(optionVo)
         makeAppConfig(optionVo)
         makeAppResource(optionVo)
         makeDbProperties(optionVo)
@@ -49,11 +49,15 @@ class AutoService {
     /**
      * Gradle의 기본적인 Build를 실행함
      * @param optionVo
+     * @deprecated 굳이 빌드를 할 이유는 없음. import 시키고 사용자 수동빌드
      */
+    @Deprecated
     def playGradleBuild(OptionVo optionVo){
-        //TODO GRADLE_HOME을 설정하는 방안 구상 , 또는 gradlew 사용
-        println " /Users/changhwaoh/gradle/gradle-1.10/bin/gradle build".execute(
-                null, new File(optionVo.projectPath)).text
+
+        String gradleHome = System.getProperty("gradle.home")+"/bin/gradle".trim();
+        println gradleHome
+        println([gradleHome,"build"].execute(
+                null, new File(optionVo.projectPath)).text)
     }
 
     /**
