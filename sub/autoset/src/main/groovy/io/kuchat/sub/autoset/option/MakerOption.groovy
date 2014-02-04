@@ -22,7 +22,7 @@ class MakerOption implements Option{
         println CURRENT_PATH
         if(name.startsWith("server-")||name.startsWith("client-")){
             //개발시 String projectRootPath = new File(new File(CURRENT_PATH).parent).parent
-            String projectRootPath = new File(new File(CURRENT_PATH)) //운영
+            String projectRootPath = new File(CURRENT_PATH) //운영
             optionVo.projectPath = projectRootPath+"/"+name
             optionVo.projectKind = name.substring(0,6)
         } else {
