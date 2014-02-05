@@ -23,6 +23,10 @@ class AutoApp {
         } else if (optionType == "-m"){ //Make
             option = new MakerOption()
             optionVo = option.job(optionValues)
+        } else {  //지정되지 않은 값
+            println "옵션이 잘못입력되었습니다."
+            println "-h 옵션으로 확인해보세요"
+            System.exit(1)
         }
 
     }
