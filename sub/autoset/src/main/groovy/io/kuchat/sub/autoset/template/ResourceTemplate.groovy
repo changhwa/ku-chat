@@ -1,5 +1,10 @@
 package io.kuchat.sub.autoset.template
 
+/**
+ * Spring Resources 파일
+ *
+ * @author Changhwa Oh
+ */
 class ResourceTemplate implements Template{
 
     @Override

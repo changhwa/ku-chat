@@ -1,5 +1,10 @@
 package io.kuchat.sub.autoset.template
 
+/**
+ * Spring Config Template
+ *
+ * @author Changhwa Oh
+ */
 class SpringConfigTemplate implements Template{
 
     @Override

@@ -1,16 +1,22 @@
 package io.kuchat.sub.autoset.vo
 
+/**
+ * 옵션 VO
+ *
+ * @author Changhwa Oh
+ */
 class OptionVo {
 
+    /** Project 경로*/
     def projectPath
-    def projectKind // server  or  client
-    def ide
-    def projectType
 
-    def getIde(){
-        if(ide == "idea" || ide == "eclipse"){
-            return ide
-        }
-    }
+    /** 프로젝트 종류 (server인지 client인지) */
+    def projectKind
+
+    /** IDE 종류 */
+    def ide
+
+    /** 프로젝트 Type (jpa, default, 등)*/
+    def projectType
 
 }
