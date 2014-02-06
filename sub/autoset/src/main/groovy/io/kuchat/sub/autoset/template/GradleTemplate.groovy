@@ -1,6 +1,10 @@
 package io.kuchat.sub.autoset.template
 
-
+/**
+ * build.gradle 템플릿
+ *
+ * @author Changhwa Oh
+ */
 class GradleTemplate implements Template{
 
     @Override

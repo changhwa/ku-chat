@@ -1,5 +1,10 @@
 package io.kuchat.sub.autoset.template
 
+/**
+ * db.properties 템플릿
+ *
+ * @author Changhwa Oh
+ */
 class DbPropertyTemplate implements Template{
 
     @Override

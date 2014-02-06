@@ -9,6 +9,9 @@ import io.kuchat.sub.autoset.template.Template
 import io.kuchat.sub.autoset.vo.OptionVo
 
 @Slf4j
+/**
+ * @author Changhwa Oh
+ */
 class AutoService {
 
     Template template
