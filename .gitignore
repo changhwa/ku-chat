@@ -4,3 +4,8 @@
 **/.gradle/*
 **/.idea/*
 **/.DS_Store
+sub/**/.idea/*
+sub/**/*.iml
+sub/**/.gradle/*
+sub/**/build/*
+sub/**/classes/*
