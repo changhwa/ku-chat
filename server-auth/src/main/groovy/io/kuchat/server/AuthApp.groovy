@@ -3,9 +3,11 @@ package io.kuchat.server
 import groovy.util.logging.Slf4j
 import io.kuchat.server.auth.domain.User
 import io.kuchat.server.auth.service.AuthService
+import io.kuchat.server.common.SocketDataProvider
+import io.kuchat.server.common.vo.CommonVo
+import io.kuchat.server.common.vo.ResultVo
 import io.kuchat.server.config.AppConfig
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+import net.sf.json.JSONObject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
@@ -18,12 +20,56 @@ class AuthApp {
     @Autowired
     AuthService userAuthService
 
+    @Autowired
+    SocketDataProvider authSocketDataProvider
+
+    /**
+     * 소켓을 구현 하고 데이터를 bind함
+     */
     public void start(){
-        User user = new User()
-        user.id = 1
-        user = userAuthService.findUserById(user)
-        println user.name
-        log.info "Test"
+        //소켓부분 구현
+        def server = new ServerSocket(9000)
+
+        while (true){
+            server.accept { socket ->
+                log.info ("Connection ...")
+                socket.withStreams { input, output ->
+                    def inputStream = input.newReader()
+                    String json = inputStream.readLine()
+                    log.info("json data : => $json")
+                    def sendData = recevie(json)
+                    output << sendData
+                }
+                log.info ("the end...")
+            }
+        }
+    }
+
+    /**
+     * 소켓으로 부터 데이터를 받음
+     * @param json
+     */
+    def recevie(String json) {
+        CommonVo commonVo = authSocketDataProvider.socketJsonDataToVo(json, User.class)
+        def result = doAction(commonVo)
+        result
+    }
+
+    /**
+     * Action을 실행함
+     * @param commonVo
+     */
+    def doAction(CommonVo commonVo){
+        String actionType = commonVo.actionType
+
+        log.info(" Auth Action ")
+        log.info(" ActionType == > " + actionType)
+
+        ResultVo resultVo = userAuthService."$actionType"(commonVo.data)
+
+        //TODO 리팩토링 해야할듯.. doAction에 어울리지 않음
+        commonVo.data = resultVo
+        return JSONObject.fromObject(commonVo).toString()
     }
 
 
