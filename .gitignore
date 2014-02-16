@@ -9,3 +9,4 @@ sub/**/*.iml
 sub/**/.gradle/*
 sub/**/build/*
 sub/**/classes/*
+server-music/out/*
