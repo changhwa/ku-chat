@@ -1,8 +1,8 @@
 package io.kuchat.server.auth.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import io.kuchat.server.user.domain.UserStatus;
+
+import javax.persistence.*;
 
 @Entity
 public class User {
@@ -10,7 +10,7 @@ public class User {
     private String name;
     private String passwd;
     private int loginCnt;
-
+    private UserStatus userStatus;
 
     @javax.persistence.Column(name = "email")
     @Id
@@ -50,6 +50,16 @@ public class User {
 
     public void setLoginCnt(int loginCnt) {
         this.loginCnt = loginCnt;
+    }
+
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    public UserStatus getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(UserStatus userStatus) {
+        this.userStatus = userStatus;
     }
 
     @Override
