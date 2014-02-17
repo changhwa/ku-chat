@@ -6,24 +6,14 @@ import javax.persistence.Id;
 
 @Entity
 public class User {
-    private int id;
     private String email;
     private String name;
     private String passwd;
     private int loginCnt;
 
-    @javax.persistence.Column(name = "id")
-    @Id
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @javax.persistence.Column(name = "email")
-    @Basic
+    @Id
     public String getEmail() {
         return email;
     }
@@ -69,7 +59,6 @@ public class User {
 
         User user = (User) o;
 
-        if (id != user.id) return false;
         if (loginCnt != user.loginCnt) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (name != null ? !name.equals(user.name) : user.name != null) return false;
@@ -80,7 +69,7 @@ public class User {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = 0;
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (passwd != null ? passwd.hashCode() : 0);
